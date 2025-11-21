@@ -1,1 +1,1 @@
-# Namangan-Qurilish
+# plitka

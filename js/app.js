@@ -1,24 +1,311 @@
-document.addEventListener("DOMContentLoaded", (function () { const e = document.querySelectorAll(".registerBtn"), t = document.getElementById("registrationModal"), n = document.getElementById("closeModalBtn"), l = document.querySelector(".homeModalOverlay"), o = document.getElementById("registrationForm"), i = document.getElementById("phone"), a = document.getElementById("phoneError"), d = document.getElementById("submitBtn"), c = document.getElementById("selectedCountry"), r = document.getElementById("selectedCountryCode"), s = document.getElementById("countryDropdown"), h = document.getElementById("dropdownIcon"), m = [{ name: "Tajikistan", code: "+992" }, { name: "Uzbekistan", code: "+998" }, { name: "AQSH", code: "+1" }, { name: "Janubiy Koreya", code: "+82" }, { name: "Qirg'iziston", code: "+996" }, { name: "Qozog'iston", code: "+7" }, { name: "Turkmaniston", code: "+993" }, { name: "Polsha", code: "+48" }], u = { "+992": { placeholder: "55 555 5555", format: function (e) { let t = ""; return e.length > 0 && (t += e.slice(0, Math.min(2, e.length))), e.length > 2 && (t += " " + e.slice(2, Math.min(5, e.length))), e.length > 5 && (t += " " + e.slice(5, Math.min(9, e.length))), t }, validate: function (e) { return /^\d{2} \d{3} \d{4}$/.test(e) } }, "+998": { placeholder: "88 888 88 88", format: function (e) { let t = ""; return e.length > 0 && (t += e.slice(0, Math.min(2, e.length))), e.length > 2 && (t += " " + e.slice(2, Math.min(5, e.length))), e.length > 5 && (t += " " + e.slice(5, Math.min(7, e.length))), e.length > 7 && (t += " " + e.slice(7, Math.min(9, e.length))), t }, validate: function (e) { return /^\d{2} \d{3} \d{2} \d{2}$/.test(e) } }, "+1": { placeholder: "555 123 4567", format: function (e) { let t = ""; return e.length > 0 && (t += e.slice(0, Math.min(3, e.length))), e.length > 3 && (t += " " + e.slice(3, Math.min(6, e.length))), e.length > 6 && (t += " " + e.slice(6, Math.min(10, e.length))), t }, validate: function (e) { return /^\d{3} \d{3} \d{4}$/.test(e) } }, "+82": { placeholder: "10 1234 5678", format: function (e) { let t = ""; return e.length > 0 && (t += e.slice(0, Math.min(2, e.length))), e.length > 2 && (t += " " + e.slice(2, Math.min(6, e.length))), e.length > 6 && (t += " " + e.slice(6, Math.min(10, e.length))), t }, validate: function (e) { return /^\d{2} \d{4} \d{4}$/.test(e) } }, "+996": { placeholder: "555 123 456", format: function (e) { let t = ""; return e.length > 0 && (t += e.slice(0, Math.min(3, e.length))), e.length > 3 && (t += " " + e.slice(3, Math.min(6, e.length))), e.length > 6 && (t += " " + e.slice(6, Math.min(9, e.length))), t }, validate: function (e) { return /^\d{3} \d{3} \d{3}$/.test(e) } }, "+7": { placeholder: "700 123 4567", format: function (e) { let t = ""; return e.length > 0 && (t += e.slice(0, Math.min(3, e.length))), e.length > 3 && (t += " " + e.slice(3, Math.min(6, e.length))), e.length > 6 && (t += " " + e.slice(6, Math.min(10, e.length))), t }, validate: function (e) { return /^\d{3} \d{3} \d{4}$/.test(e) } }, "+993": { placeholder: "6 123 4567", format: function (e) { let t = ""; return e.length > 0 && (t += e.slice(0, Math.min(1, e.length))), e.length > 1 && (t += " " + e.slice(1, Math.min(4, e.length))), e.length > 4 && (t += " " + e.slice(4, Math.min(8, e.length))), t }, validate: function (e) { return /^\d{1} \d{3} \d{4}$/.test(e) } }, "+48": { placeholder: "123 456 789", format: function (e) { let t = ""; return e.length > 0 && (t += e.slice(0, Math.min(3, e.length))), e.length > 3 && (t += " " + e.slice(3, Math.min(6, e.length))), e.length > 6 && (t += " " + e.slice(6, Math.min(9, e.length))), t }, validate: function (e) { return /^\d{3} \d{3} \d{3}$/.test(e) } } }; let g = "+998"; function y() { t.style.display = "none", document.body.style.overflowY = "scroll" } c.addEventListener("click", (function () { "block" === s.style.display ? (s.style.display = "none", h.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>') : (s.innerHTML = "", m.forEach((function (e) { const t = document.createElement("div"); t.className = "country-option", e.code === g && t.classList.add("selected"), t.innerHTML = `\n          <span>${e.name}</span>\n          <span class="country-code">${e.code}</span>\n          ${e.code, ""}\n        `, t.addEventListener("click", (function () { g = e.code, r.textContent = e.code, s.style.display = "none"; const t = u[e.code] || u["+998"]; i.placeholder = t.placeholder, i.value = "", a.style.display = "none", h.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>' })), s.appendChild(t) })), s.style.display = "block", h.innerHTML = '<polyline points="18 15 12 9 6 15"></polyline>') })), document.addEventListener("click", (function (e) { c.contains(e.target) || s.contains(e.target) || (s.style.display = "none", h.innerHTML = '<polyline points="6 9 12 15 18 9"></polyline>') })), i.addEventListener("input", (function (e) { const t = e.target.value.replace(/\D/g, ""), n = (u[g] || u["+998"]).format(t); i.value = n, a.style.display = "none" })), e.forEach((function (e) { e.addEventListener("click", (function () { t.style.display = "block", document.body.style.overflowY = "hidden" })) })), n.addEventListener("click", y), l.addEventListener("click", y), o.addEventListener("submit", (function (e) { e.preventDefault(); const t = i.value; if (!(u[g] || u["+998"]).validate(t)) return void (a.style.display = "block"); a.style.display = "none", d.textContent = "YUBORILMOQDA...", d.disabled = !0; const n = new Date, l = n.toLocaleDateString("uz-UZ"), o = n.toLocaleTimeString("uz-UZ"), c = { TelefonRaqam: g + " " + t, SanaSoat: l + " - " + o }; localStorage.setItem("formData", JSON.stringify(c)), window.location.href = "/thankYou.html", d.textContent = "DAVOM ETISH", d.disabled = !1, i.value = "", y() })); let f = 120; const p = document.getElementById("timer"); if (p) { const e = setInterval((function () { if (f <= 0) return clearInterval(e); f--; const t = Math.floor(f / 60), n = f % 60, l = t.toString().padStart(1, "0") + ":" + n.toString().padStart(2, "0"); p.textContent = l }), 1e3) } }));
+const hamburger = document.getElementById("hamburger");
+const mobileMenu = document.getElementById("mobileMenu");
+const closeBtn = document.getElementById("closeBtn");
+const overlay = document.getElementById("overlay");
+hamburger.addEventListener("click", () => {
+  mobileMenu.classList.add("active");
+  overlay.classList.add("active");
+});
+closeBtn.addEventListener("click", () => {
+  mobileMenu.classList.remove("active");
+  overlay.classList.remove("active");
+});
+overlay.addEventListener("click", () => {
+  mobileMenu.classList.remove("active");
+  overlay.classList.remove("active");
+});
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 1224) {
+    mobileMenu.classList.remove("active");
+    overlay.classList.remove("active");
+  }
+});
 
-document.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    const images = document.querySelectorAll(".minifyImg");
+// ===== Modal open / close =====
+const calcModal = document.getElementById("calcModal");
+const openCalcBtn = document.getElementById("openCalcBtn");
+const calcCloseBtn = document.getElementById("calcCloseBtn");
+const calcOverlay = document.getElementById("calcOverlay");
 
-    images.forEach((img) => {
-      const bigSrc = img.getAttribute("data-src");
-      if (!bigSrc) return;
+function openModal() {
+  calcModal.classList.add("calc-modal--open");
+}
 
-      const highRes = new Image();
-      highRes.src = bigSrc;
+function closeModal() {
+  calcModal.classList.remove("calc-modal--open");
+}
 
-      highRes.onload = () => {
-        img.src = bigSrc;
-        img.classList.remove("blur-up");
-      };
+openCalcBtn.addEventListener("click", openModal);
+calcCloseBtn.addEventListener("click", closeModal);
+calcOverlay.addEventListener("click", closeModal);
 
-      highRes.onerror = () => {
-        console.warn("Rasm yuklanmadi:", bigSrc);
-      };
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeModal();
+});
+
+// ===== Calculator logic =====
+const serviceSelect = document.getElementById("serviceSelect");
+const areaInput = document.getElementById("areaInput");
+const priceBtn = document.getElementById("priceBtn");
+const priceValue = document.getElementById("priceValue");
+
+function updatePrice() {
+  const pricePerM2 = Number(serviceSelect.value); // из value <option>
+  const area = Number(areaInput.value);
+
+  if (!pricePerM2 || !area || area <= 0) {
+    priceBtn.disabled = true;
+    priceValue.textContent = "… ₽";
+    return;
+  }
+
+  const total = pricePerM2 * area;
+
+  priceBtn.disabled = false;
+  priceValue.textContent = total.toLocaleString("ru-RU") + " ₽"; // красивый формат 120 000 ₽
+}
+
+serviceSelect.addEventListener("change", updatePrice);
+areaInput.addEventListener("input", updatePrice);
+
+document.addEventListener("DOMContentLoaded", function () {
+  const registerBtns = document.querySelectorAll(".registerBtn"); // oddiy btnlar
+  const tariffBtns = document.querySelectorAll(".services__row__col__btn"); // tarif btnlar
+
+  const modal = document.getElementById("registrationModal");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+  const overlay = document.querySelector(".homeModalOverlay");
+  const form = document.getElementById("registrationForm");
+  const phoneInput = document.getElementById("phone");
+  const phoneError = document.getElementById("phoneError");
+  const submitBtn = document.getElementById("submitBtn");
+  const timerEl = document.getElementById("timer");
+
+  const tariffInput = document.getElementById("tariff");
+  const serviceSelect = document.getElementById("service");
+  const tariffRow = document.getElementById("tariffRow");
+  const serviceRow = document.getElementById("serviceRow");
+
+  const nameInput = document.getElementById("name");
+  const addressInput = document.getElementById("address");
+
+  // 🔒 ALWAYS RUSSIA
+  const COUNTRY_CODE = "+7";
+  const GROUPS = [3, 3, 4]; // 900 123 4567
+
+  function groupsToMaxLen(groups) {
+    return (
+      groups.reduce((sum, n) => sum + n, 0) + Math.max(groups.length - 1, 0)
+    );
+  }
+
+  const MAX_LEN = groupsToMaxLen(GROUPS);
+  const PHONE_REGEX = new RegExp(
+    "^" + GROUPS.map((n) => `\\d{${n}}`).join("\\s") + "$"
+  );
+
+  function formatDigitsToPhone(digits) {
+    let parts = [];
+    let index = 0;
+
+    for (let g of GROUPS) {
+      if (index >= digits.length) break;
+      parts.push(digits.slice(index, index + g));
+      index += g;
+    }
+
+    return parts.join(" ");
+  }
+
+  // 🔓 MODAL OCHISH: fromTariff = true/false
+  function openModal(tariffName = "", fromTariff = false) {
+    if (!modal) return;
+    modal.style.display = "block";
+    document.body.style.overflowY = "hidden";
+
+    phoneInput.placeholder = "900 123 4567";
+    phoneInput.maxLength = MAX_LEN;
+    phoneInput.value = "";
+    phoneError.style.display = "none";
+
+    // Forma maydonlarini reset
+    if (nameInput) nameInput.value = "";
+    if (addressInput) addressInput.value = "";
+    if (serviceSelect) serviceSelect.selectedIndex = 0;
+
+    if (fromTariff) {
+      // Tarif tugmasidan ochilgan
+      if (tariffRow) tariffRow.style.display = "block";
+      if (serviceRow) serviceRow.style.display = "none";
+
+      if (tariffInput) {
+        // ruscha, lotincha
+        tariffInput.value = tariffName || "";
+      }
+    } else {
+      // Oddiy register btn
+      if (tariffRow) tariffRow.style.display = "none";
+      if (serviceRow) serviceRow.style.display = "block";
+
+      if (tariffInput) {
+        tariffInput.value = "";
+      }
+    }
+  }
+
+  function closeModal() {
+    if (!modal) return;
+    modal.style.display = "none";
+    document.body.style.overflowY = "scroll";
+  }
+
+  // 🟢 ODDIY register btn – USLUGA bo‘ladi, tarif yo‘q
+  registerBtns.forEach((btn) =>
+    btn.addEventListener("click", () => openModal("", false))
+  );
+
+  // 🟡 TARIF kartochkalaridagi btn – TARIF ko‘rinadi, USLUGA yo‘q
+  tariffBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      let tariffName = btn.dataset.tariff || "";
+
+      // Agar data-tariff bo‘lmasa, kartadan title olib qo‘yish fallback
+      if (!tariffName) {
+        const col = btn.closest(".services__row__col");
+        const titleEl = col && col.querySelector(".services__row__col__title");
+        if (titleEl) {
+          // masalan "Эконом" → "Ekonom" deb o‘zing translit qilmoqchi bo‘lsang, shu yerda qilasan
+          const text = titleEl.textContent.trim();
+          if (text === "Эконом") tariffName = "Ekonom";
+          else if (text === "Стандарт") tariffName = "Standart";
+          else if (text === "Премиум") tariffName = "Premium";
+          else tariffName = text;
+        }
+      }
+
+      openModal(tariffName, true);
     });
-  }, 1000);
+  });
+
+  // ❌ CLOSE MODAL
+  if (closeModalBtn) closeModalBtn.addEventListener("click", closeModal);
+  if (overlay) overlay.addEventListener("click", closeModal);
+
+  // 📱 PHONE INPUT – ONLY RUS FORMAT
+  phoneInput.addEventListener("input", (e) => {
+    const digits = e.target.value.replace(/\D/g, "");
+    const formatted = formatDigitsToPhone(digits);
+    phoneInput.value = formatted;
+    phoneError.style.display = "none";
+  });
+
+  // 📨 FORM SUBMIT
+  // 📨 FORM SUBMIT
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const raw = phoneInput.value.trim();
+
+    if (!PHONE_REGEX.test(raw)) {
+      phoneError.style.display = "block";
+      return;
+    }
+
+    phoneError.style.display = "none";
+    submitBtn.textContent = "ОТПРАВКА...";
+    submitBtn.disabled = true;
+
+    // faqat raqamlarni olib olamiz
+    const digits = raw.replace(/\D/g, "");
+    const fullPhone = COUNTRY_CODE + digits; // masalan: +79001234567
+
+    // tarif qiymatini aniqlaymiz:
+    let tarifValue = "";
+
+    // Agar tarif oynasi ochilgan bo'lsa (tarif bilan)
+    if (tariffInput && tariffRow && tariffRow.style.display !== "none") {
+      tarifValue = (tariffInput.value || "").trim();
+    }
+    // Aks holda oddiy register (usluga) dan olamiz
+    else if (
+      serviceSelect &&
+      serviceRow &&
+      serviceRow.style.display !== "none"
+    ) {
+      tarifValue = (serviceSelect.value || "").trim();
+    }
+
+    const payload = {
+      name: nameInput ? nameInput.value.trim() : "",
+      phone: fullPhone,
+      address: addressInput ? addressInput.value.trim() : "",
+      tarif: tarifValue,
+    };
+
+    console.log("Yuborilayotgan payload:", payload);
+
+    // API ga yuborish
+    fetch("https://kafel.asosit.uz/api/lead", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          const text = await res.text().catch(() => "");
+          throw new Error("Server error: " + res.status + " " + text);
+        }
+        // agar backend json qaytarsa:
+        try {
+          return await res.json();
+        } catch {
+          return null;
+        }
+      })
+      .then((data) => {
+        console.log("Lead success:", data);
+
+        // muvaffaqiyatli bo'lsa thank you sahifaga
+        // window.location.href = "/thankYou.html";
+        closeModal();
+      })
+      .catch((err) => {
+        console.error("Lead send error:", err);
+        alert(
+          "Xatolik yuz berdi, iltimos, birozdan keyin yana urinib ko'ring."
+        );
+      })
+      .finally(() => {
+        submitBtn.textContent = "Отправить";
+        submitBtn.disabled = false;
+        phoneInput.value = "";
+      });
+  });
+
+  // ⏱ SIMPLE TIMER (2 MINUTES)
+  let remaining = 120;
+  if (timerEl) {
+    const intervalId = setInterval(() => {
+      if (remaining <= 0) {
+        clearInterval(intervalId);
+        return;
+      }
+      remaining--;
+
+      const minutes = Math.floor(remaining / 60);
+      const seconds = remaining % 60;
+      const text =
+        minutes.toString().padStart(1, "0") +
+        ":" +
+        seconds.toString().padStart(2, "0");
+
+      timerEl.textContent = text;
+    }, 1000);
+  }
+
+  // initial setup
+  phoneInput.placeholder = "900 123 4567";
+  phoneInput.maxLength = MAX_LEN;
 });
